@@ -1,0 +1,112 @@
+/**
+ *
+ * @author Leia
+ */
+
+public class Matrix {
+
+    private final double[][] matrix;
+    private final int height;
+    private final int width;
+    private String toStr;
+
+    /**
+     * Initialize instance variables
+     * @param matrix 2D array representation of Matrix
+     */
+    public Matrix(double[][] matrix) {
+        this.matrix = matrix;
+        height = matrix.length;
+        width = matrix[0].length;
+    }
+
+    /**
+     * Gets value located at specified row and column
+     * @param i row
+     * @param j column
+     * @return double located at row i and column j in matrix
+     */
+    public double get(int i, int j) {
+        if (i > height || j > width) {
+            throw new IndexOutOfBoundsException();
+        }
+        return matrix[i][j];
+    }
+
+    /**
+     * Gets the height of the matrix.
+     * @return number of rows in matrix
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * Gets the width of the matrix.
+     * @return number of columns in matrix
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    public Vector getColumn(int j) {
+        double[] column = new double[height];
+        for (int i = 0; i > height; i++) {
+            column[i] = get(i, j);
+        }
+        return new Vector(column);
+    }
+    
+    /** 
+     * 
+     * @param rowStart Start row, inclusive
+     * @param rowLen Length of row selection
+     * @param colStart Start column, inclusive
+     * @param colLen Length of column selection
+     * @return Sub Matrix 
+     */
+    public Matrix getSubMatrix(int rowStart, int rowLen, int colStart, int colLen) {
+        
+        double[][] sub = new double[rowLen + rowStart][colLen + colStart];
+        for (int i = 0; i < rowLen; i++) {
+            for (int j = 0; j < colLen; j++) {
+                sub[i][j] = get(i + rowStart,j + colStart);
+            }
+        }
+        return new Matrix(sub);
+    }
+    
+    /**
+     * Gets String representation of matrix.
+     * Columns separated by tabs, rows by new lines.
+     * @return String representation of matrix.
+     */
+    public String toString() {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                toStr += matrix[i][j] + "\t";
+            }
+            toStr += "\n";
+        }
+        return toStr;
+    }
+    
+    /**
+     * Return identity matrix
+     * @param n Size of identity matrix
+     * @return identity matrix of size n
+     */
+    public static Matrix identity(int n) {
+        double[][] identity = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i==j)
+                    identity[i][j] = 1;
+                else
+                    identity[i][j] = 0;
+            }
+        }
+        return new Matrix(identity);
+    }
+    
+}
