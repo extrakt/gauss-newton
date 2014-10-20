@@ -76,6 +76,39 @@ public class Matrix {
         return new Matrix(sub);
     }
     
+     /**
+     * Addition of Matricies if compatible
+     * @param m1 Matrix1
+     * @param m2 Matrix2
+     * @return result of type Matrix
+     * @throws IllegalOperandException Width and height of matricies don't match
+     */
+    public Matrix add(Matrix m2) {
+        int widthM1 = getWidth();
+        int heightM1 = getHeight();
+        int widthM2 = m2.getWidth();
+        int heightM2 = m2.getHeight();
+
+        double[][] result = new double[heightM1][widthM1];
+
+        for (int i = 0; i < heightM1; i++) {
+            for (int j = 0; j < widthM1; j++) {
+                result[i][j] = get(i, j) + m2.get(i, j);
+            }
+        }
+        return new Matrix(result);
+    }
+    
+    public Matrix mult(double a) {
+        double[][] mult = new double[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; i++) {
+                mult[i][j] = get(i,j) * a;
+            }
+        }
+        return new Matrix(mult);
+    }
+    
     /**
      * Gets String representation of matrix.
      * Columns separated by tabs, rows by new lines.

@@ -25,10 +25,7 @@ public class Vector {
      * @param i index in vector
      * @return double located at index 'i' in vector
      */
-    public double get(int i) throws IndexOutOfBoundsException {
-        if (i > length) {
-            throw new IndexOutOfBoundsException();
-        }
+    public double get(int i){
         return vector[i];
     }
 
@@ -74,6 +71,24 @@ public class Vector {
     }
     
     /**
+     * Multiplies by a matrix of height 1 (a transpose vector)
+     * @param a Scalar multiple
+     * @return Result
+     */
+    public Matrix mult(Matrix a) {
+        double[][] result = new double[vector.length][a.getWidth()];
+        
+        // Each row in the vector
+        for (int i = 0; i < vector.length; i++) {
+            // Each column in the matrix (transpose vector)
+            for (int j = 0; j < a.getWidth(); j++) {
+                result[i][j] = a.get(0, j) * vector[i];
+            }
+        }
+        return new Matrix(result);
+    }
+    
+    /**
      * Addition of Vectors if compatible
      * @param v2 Vector 
      * @return result of type Vector
@@ -88,6 +103,18 @@ public class Vector {
             result[i] = this.get(i) + v2.get(i);
         }
         return new Vector(result);
+    }
+    
+    /**
+     * Transposes a vector
+     * @return Transpose of vector
+     */
+    public Matrix transpose(){
+        double[][] result = new double[1][length];
+        for (int i = 0; i < length; i++) {
+            result[0][i] = get(i);
+        }
+        return new Matrix(result);
     }
    
     /**

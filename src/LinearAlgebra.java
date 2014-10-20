@@ -126,13 +126,7 @@ public class LinearAlgebra {
         return null;
     }
     
-    /**
-     * Transposes a vector
-     */
-    public static Matrix transpose(Vector a){
-        // TODO
-        return null;
-    }
+    
     
     /**
      * 
