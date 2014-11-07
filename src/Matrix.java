@@ -19,6 +19,12 @@ public class Matrix {
         height = matrix.length;
         width = matrix[0].length;
     }
+    
+    public Matrix(int rows, int cols) {
+        this.matrix = new double[rows][cols];
+        height = this.matrix.length;
+        width = this.matrix[0].length;
+    }
 
     /**
      * Gets value located at specified row and column
@@ -31,6 +37,13 @@ public class Matrix {
             throw new IndexOutOfBoundsException();
         }
         return matrix[i][j];
+    }
+    
+    public void set(int i, int j, double d) {
+        if (i >= height || j >= width) {
+            throw new IndexOutOfBoundsException();
+        }
+        matrix[i][j] = d;
     }
 
     /**
@@ -65,7 +78,7 @@ public class Matrix {
      * @param colLen Length of column selection
      * @return Sub Matrix 
      */
-    public Matrix getSubMatrix(int rowStart, int rowLen, int colStart, int colLen) {
+    public Matrix getMinorMatrix(int rowStart, int rowLen, int colStart, int colLen) {
         
         double[][] sub = new double[rowLen + rowStart][colLen + colStart];
         for (int i = 0; i < rowLen; i++) {
@@ -102,7 +115,7 @@ public class Matrix {
     public Matrix mult(double a) {
         double[][] mult = new double[height][width];
         for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; i++) {
+            for (int j = 0; j < width; j++) {
                 mult[i][j] = get(i,j) * a;
             }
         }
