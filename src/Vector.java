@@ -8,7 +8,6 @@ public class Vector {
 
     private final double[] vector;
     private final int length;
-    private String toStr;
 
 
     /**
@@ -127,10 +126,11 @@ public class Vector {
      * @return String representation of vector
      */
     public String toString() {
+        String toStr = "Vector:\n(";
         for (int i = 0; i < length; i++) {
-            toStr += vector[i] + "\t";
+            toStr += vector[i] + ",\t";
         }
-        return toStr;
+        return toStr + ")";
     }
     
     
