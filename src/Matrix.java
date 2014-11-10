@@ -32,6 +32,9 @@ public class Matrix {
         }
         return matrix[i][j];
     }
+    public void set(int i, int j, double value) {
+        matrix[i][j] = value;
+    }
 
     /**
      * Gets the height of the matrix.
@@ -141,5 +144,19 @@ public class Matrix {
         }
         return new Matrix(identity);
     }
-    
+    /**
+     * Return transpose matrix
+     *
+     * @param n transpose matrix
+     * @return identity matrix of size n
+     */
+    public static double[][] transposeMatrix(double[][] n) {
+        double[][] trans = new double[n[0].length][n.length];
+        for (int i = 0; i < n.length; i++) {
+            for (int j = 0; j < n[0].length; j++) {
+                trans[j][i] = n[i][j];
+            }
+        }
+        return trans;
+    }  
 }
