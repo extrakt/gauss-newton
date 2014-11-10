@@ -2,7 +2,6 @@
  *
  * @author Leia
  */
-
 public class Matrix {
 
     private final double[][] matrix;
@@ -12,6 +11,7 @@ public class Matrix {
 
     /**
      * Initialize instance variables
+     *
      * @param matrix 2D array representation of Matrix
      */
     public Matrix(double[][] matrix) {
@@ -19,7 +19,7 @@ public class Matrix {
         height = matrix.length;
         width = matrix[0].length;
     }
-    
+
     public Matrix(int rows, int cols) {
         this.matrix = new double[rows][cols];
         height = this.matrix.length;
@@ -28,6 +28,7 @@ public class Matrix {
 
     /**
      * Gets value located at specified row and column
+     *
      * @param i row
      * @param j column
      * @return double located at row i and column j in matrix
@@ -38,7 +39,7 @@ public class Matrix {
         }
         return matrix[i][j];
     }
-    
+
     public void set(int i, int j, double d) {
         if (i >= height || j >= width) {
             throw new IndexOutOfBoundsException();
@@ -48,6 +49,7 @@ public class Matrix {
 
     /**
      * Gets the height of the matrix.
+     *
      * @return number of rows in matrix
      */
     public int getHeight() {
@@ -56,6 +58,7 @@ public class Matrix {
 
     /**
      * Gets the width of the matrix.
+     *
      * @return number of columns in matrix
      */
     public int getWidth() {
@@ -64,33 +67,35 @@ public class Matrix {
 
     public Vector getColumn(int j) {
         double[] column = new double[height];
-        for (int i = 0; i > height; i++) {
+        for (int i = 0; i < height; i++) {
             column[i] = get(i, j);
         }
         return new Vector(column);
     }
-    
-    /** 
-     * 
+
+    /**
+     *
      * @param rowStart Start row, inclusive
      * @param rowLen Length of row selection
      * @param colStart Start column, inclusive
      * @param colLen Length of column selection
-     * @return Sub Matrix 
+     * @return Sub Matrix
      */
     public Matrix getMinorMatrix(int rowStart, int rowLen, int colStart, int colLen) {
-        
-        double[][] sub = new double[rowLen + rowStart][colLen + colStart];
+
+        double[][] sub = new double[rowLen][colLen];
+
         for (int i = 0; i < rowLen; i++) {
             for (int j = 0; j < colLen; j++) {
-                sub[i][j] = get(i + rowStart,j + colStart);
+                sub[i][j] = get(i + rowStart, j + colStart);
             }
         }
         return new Matrix(sub);
     }
-    
-     /**
+
+    /**
      * Addition of Matricies if compatible
+     *
      * @param m1 Matrix1
      * @param m2 Matrix2
      * @return result of type Matrix
@@ -111,34 +116,38 @@ public class Matrix {
         }
         return new Matrix(result);
     }
-    
+
     public Matrix mult(double a) {
         double[][] mult = new double[height][width];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                mult[i][j] = get(i,j) * a;
+                mult[i][j] = get(i, j) * a;
             }
         }
         return new Matrix(mult);
     }
-    
+
     /**
-     * Gets String representation of matrix.
-     * Columns separated by tabs, rows by new lines.
+     * Gets String representation of matrix. Columns separated by tabs, rows by
+     * new lines.
+     *
      * @return String representation of matrix.
      */
     public String toString() {
+        String toStr = "Matrix:\n";
         for (int i = 0; i < height; i++) {
+            toStr += "[";
             for (int j = 0; j < width; j++) {
                 toStr += matrix[i][j] + "\t";
             }
-            toStr += "\n";
+            toStr += "]\n";
         }
         return toStr;
     }
-    
+
     /**
      * Return identity matrix
+     *
      * @param n Size of identity matrix
      * @return identity matrix of size n
      */
@@ -146,13 +155,14 @@ public class Matrix {
         double[][] identity = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (i==j)
+                if (i == j) {
                     identity[i][j] = 1;
-                else
+                } else {
                     identity[i][j] = 0;
+                }
             }
         }
         return new Matrix(identity);
     }
-    
+
 }

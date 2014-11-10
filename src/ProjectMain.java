@@ -12,6 +12,7 @@ public class ProjectMain {
           {2,4,1},
           {0,2,1}
       });
+      System.out.println(a);
       QRFact qr = new QRFact(a);
       
       qr.doHouseholder();
