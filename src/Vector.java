@@ -28,6 +28,10 @@ public class Vector {
     public double get(int i){
         return vector[i];
     }
+    
+    public void set(int i, double val) { //value at index
+       vector[i] = val;
+    }
 
     /**
      * Gets the length of the Vector.
