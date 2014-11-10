@@ -18,7 +18,7 @@ public class QRFact {
         int k = 0; // Iteration
         Q = Matrix.identity(A.getHeight());
         R = A;
-        while (k < A.getWidth() - 1) {
+        while (k < A.getWidth()) {
             // Minor matrix of A
             Matrix aMinor = R.getMinorMatrix(k, R.getHeight() - k, k, 1);
             System.out.println(aMinor);
@@ -30,13 +30,12 @@ public class QRFact {
             Vector v = x.add(e1.mult(x.mag()));
             Vector u = v.dir();
 
-            Matrix uTranspose = u.transpose();
+            Matrix vTranspose = v.transpose();
 
             // H = I - 2*u*utranspose
-            Matrix hMinor = Matrix.identity(x.getLength())
-                    .add(u.mult(uTranspose).mult(-2));
+            Matrix hMinor = Matrix.identity(v.getLength())
+                    .add(v.mult(vTranspose).mult(-2/(v.dot(v))));
             Matrix hMajor;
-
             // Augment the minor matrix with the identity matrix
             // First check if we need to augment
             if (hMinor.getHeight() != A.getHeight()) {
@@ -51,7 +50,10 @@ public class QRFact {
                 hMajor = hMinor;
             }
             Q = Q.mult(hMajor);
+            System.out.println("Q " + Q);
+
             R = hMajor.mult(R);
+            System.out.println("R " + R);
 
             k++;
         }
@@ -59,10 +61,10 @@ public class QRFact {
     }
 
     public Matrix getQ() {
-        return Q;
+        return Q.getMinorMatrix(0, Q.getHeight(), 0, 3);
     }
 
     public Matrix getR() {
-        return R;
+        return R.getMinorMatrix(0, 3, 0, 3);
     }
 }

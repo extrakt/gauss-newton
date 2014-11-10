@@ -91,6 +91,16 @@ public class Vector {
         return new Matrix(result);
     }
     
+    public double dot(Vector v) {
+        double sum = 0;
+        if (length != v.length)
+            throw new IndexOutOfBoundsException();
+        for (int i = 0; i < v.length; i++) {
+            sum += get(i)*v.get(i);
+        }
+        return sum;
+    }
+    
     /**
      * Addition of Vectors if compatible
      * @param v2 Vector 

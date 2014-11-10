@@ -135,7 +135,7 @@ public class Matrix {
         }
         return new Matrix(mult);
     }
-
+    
     /**
      * Gets String representation of matrix. Columns separated by tabs, rows by
      * new lines.
