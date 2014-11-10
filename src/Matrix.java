@@ -39,7 +39,7 @@ public class Matrix {
         }
         return matrix[i][j];
     }
-    
+
     public void set(int i, int j, double value) {
         matrix[i][j] = value;
     }
@@ -124,6 +124,18 @@ public class Matrix {
         return new Matrix(mult);
     }
 
+    public Matrix mult(Matrix b) {
+        double[][] mult = new double[height][b.width];
+        for (int iRes = 0; iRes < height; iRes++) {
+            for (int jRes = 0; jRes < b.width; jRes++) {
+                for (int i = 0; i < width; i++) {
+                    mult[iRes][jRes] += get(iRes, i) * b.get(i, jRes);
+                }
+            }
+        }
+        return new Matrix(mult);
+    }
+
     /**
      * Gets String representation of matrix. Columns separated by tabs, rows by
      * new lines.
@@ -161,19 +173,20 @@ public class Matrix {
         }
         return new Matrix(identity);
     }
+
     /**
      * Return transpose matrix
      *
      * @param n transpose matrix
      * @return identity matrix of size n
      */
-    public static double[][] transposeMatrix(double[][] n) {
-        double[][] trans = new double[n[0].length][n.length];
-        for (int i = 0; i < n.length; i++) {
-            for (int j = 0; j < n[0].length; j++) {
-                trans[j][i] = n[i][j];
+    public Matrix transpose() {
+        double[][] trans = new double[width][height];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                trans[j][i] = get(i, j);
             }
         }
-        return trans;
-    }  
+        return new Matrix(trans);
+    }
 }
