@@ -34,7 +34,7 @@ public class QRFact {
 
             // H = I - 2*u*utranspose
             Matrix hMinor = Matrix.identity(v.getLength())
-                    .add(v.mult(vTranspose).mult(-2/(v.dot(v))));
+                    .add(v.mult(vTranspose).mult(-2 / (v.dot(v))));
             Matrix hMajor;
             // Augment the minor matrix with the identity matrix
             // First check if we need to augment
@@ -57,14 +57,39 @@ public class QRFact {
 
             k++;
         }
-
+        R = R.getMinorMatrix(0, 3, 0, 3);
+        Q = Q.getMinorMatrix(0, Q.getHeight(), 0, 3);
     }
 
     public Matrix getQ() {
-        return Q.getMinorMatrix(0, Q.getHeight(), 0, 3);
+        return Q;
     }
 
     public Matrix getR() {
-        return R.getMinorMatrix(0, 3, 0, 3);
+        return R;
+    }
+
+    /**
+     * Solves Rx=Qtb for the vector x, given the vector b. R is upper
+     * triangular, and Q is orthonormal. Uses back-substitution.
+     *
+     * @param b Vector
+     * @return Vector
+     */
+    public Vector solve(Vector b) {
+        if (R == null || Q == null) {
+            return null;
+        }
+        double[] xVector = new double[R.getHeight()];
+        Vector qb = Q.transpose().mult(b);
+        for (int i = R.getHeight() - 1; i >= 0; i--) {
+            double x = qb.get(i);
+            for (int j = R.getWidth() - 1; j > i; j--) {
+                x -= R.get(i, j) * xVector[j];
+            }
+            xVector[i] = x / R.get(i, i);
+
+        }
+        return new Vector(xVector);
     }
 }

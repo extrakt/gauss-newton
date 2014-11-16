@@ -135,7 +135,19 @@ public class Matrix {
         }
         return new Matrix(mult);
     }
-    
+
+    public Vector mult(Vector b) {
+        if (b.getLength() != width)
+            throw new IndexOutOfBoundsException();
+        double[] mult = new double[b.getLength()];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                mult[i] += get(i, j) * b.get(j);
+            }
+        }
+        return new Vector(mult);
+    }
+
     /**
      * Gets String representation of matrix. Columns separated by tabs, rows by
      * new lines.
