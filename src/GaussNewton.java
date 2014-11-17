@@ -101,6 +101,9 @@ public class GaussNewton {
     }
     
     public void get_Updated_Beta() { //β = β − (R−1Q⊤r).
-        
+        QRFact qr = new QRFact(J);
+        qr.doHouseholder();
+        qr.getQ();
+        qr.getR();
     }
 }
