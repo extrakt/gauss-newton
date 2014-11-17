@@ -21,14 +21,12 @@ public class QRFact {
         while (k < A.getWidth()) {
             // Minor matrix of A
             Matrix aMinor = R.getMinorMatrix(k, R.getHeight() - k, k, 1);
-            System.out.println(aMinor);
             // Get the first column of the matrix, with the kth iteration
             Vector x = aMinor.getColumn(0);
             // 1st column of the identity matrix
             Vector e1 = Matrix.identity(x.getLength()).getColumn(0);
 
             Vector v = x.add(e1.mult(x.mag()));
-            Vector u = v.dir();
 
             Matrix vTranspose = v.transpose();
 

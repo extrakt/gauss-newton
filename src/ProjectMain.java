@@ -17,7 +17,7 @@ public class ProjectMain {
         double[][] arrayOfInputs = getInput();
         double[] betaGuess = getBetaGuess();
         int n = getN();
-        
+        int f = getFunction();
         //test to make sure it works
         for (double[] l : arrayOfInputs) {
             for (double s : l) {
@@ -25,6 +25,25 @@ public class ProjectMain {
             }
             System.out.println();
         }
+
+        GaussNewton gn = new GaussNewton(arrayOfInputs, betaGuess, n);
+
+        switch (f) {
+            case 1:
+                gn.getGaussQuadratic();
+                break;
+            case 2:
+                gn.getGaussExponential();
+                break;
+            case 3:
+                gn.getGaussLogarithmic();
+                break;
+            case 4:
+                gn.getGaussRational();
+
+        }
+
+        System.out.println(gn.getB());
     }
 
     private static double[][] getInput() {
@@ -76,11 +95,17 @@ public class ProjectMain {
         betaArray[2] = scan.nextDouble();
         return betaArray;
     }
-    
+
     private static int getN() {
         System.out.println("Enter number of iterations");
         Scanner scan = new Scanner(System.in);
         int n = scan.nextInt();
         return n;
+    }
+
+    private static int getFunction() {
+        System.out.println("Select a function type [Quadratic: 1, Exponential: 2, Logarithmic: 3, Rational: 4]\n");
+        Scanner scan = new Scanner(System.in);
+        return scan.nextInt();
     }
 }

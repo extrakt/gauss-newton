@@ -20,6 +20,15 @@ public class Vector {
     }
 
     /**
+     * Initialize instance variables
+     * @param size Number of elements
+     */
+    public Vector(int size) {
+        this.vector = new double[size];
+        this.length = size;
+    }
+    
+    /**
      * Gets value located at specified index
      * @param i index in vector
      * @return double located at index 'i' in vector
