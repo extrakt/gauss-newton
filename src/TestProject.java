@@ -8,24 +8,29 @@
  * @author louis
  */
 public class TestProject {
+
     public static void main(String[] args) {
-        Matrix a = new Matrix(new double[][] {
-            {63,41,-88},
-            {42,60,51},
-            {0,-28,56},
-            {126,82,-71}
+        Matrix a = new Matrix(new double[][]{
+            {1, 2, 0},
+            {5, 12, 1},
+            {5, 11, 1}
         });
-        
+
 //        Matrix b = new Matrix(new double[][] {
 //            {1,0,0},
 //            {0,1,0},
 //            {0,0,1}
 //        });
-        
         QRFact qr = new QRFact(a);
         qr.doHouseholder();
         System.out.println("Q " + qr.getQ());
         System.out.println("R " + qr.getR());
         System.out.println("A " + qr.getQ().mult(qr.getR()));
+
+        Vector b = new Vector(new double[] {1,1,1});
+        Vector x = qr.solve(b);
+        System.out.println("X " + x);
+        System.out.println("b " + a.mult(x));
+
     }
 }
