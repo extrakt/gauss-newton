@@ -22,7 +22,7 @@ public class TestProject {
 //            {0,0,1}
 //        });
         QRFact qr = new QRFact(a);
-        qr.doHouseholder();
+        qr.doGivens();
         System.out.println("Q " + qr.getQ());
         System.out.println("R " + qr.getR());
         System.out.println("A " + qr.getQ().mult(qr.getR()));
