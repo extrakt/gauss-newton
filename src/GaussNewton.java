@@ -78,7 +78,7 @@ public class GaussNewton {
     public void getGaussLogarithmic() {
         for (int n = 0; n < numberOfIterations; n++) {
             for (int i = 0; i < vectorPairs.length; i++) {
-                double e = (betaVector.get(0) * Math.log((vectorPairs[i].get(0) * betaVector.get(1))) + betaVector.get(2));
+                double e = (betaVector.get(0) * Math.log((vectorPairs[i].get(0) + betaVector.get(1))) + betaVector.get(2));
                 residuals.set(i, vectorPairs[i].get(1) - e); // r = yi - (a*e^(bx) + c)
                 double tempX = vectorPairs[i].get(0);
 
@@ -103,8 +103,8 @@ public class GaussNewton {
                 residuals.set(i, vectorPairs[i].get(1) - e); // r = yi - (a*e^(bx) + c)
                 double tempX = vectorPairs[i].get(0);
 
-                double coA = (-tempX) / (tempX + betaVector.get(1));
-                double coB = -(((betaVector.get(0) * tempX) / (Math.pow(tempX + betaVector.get(1), 2))));
+                double coA = -tempX / (tempX + betaVector.get(1));
+                double coB = ((betaVector.get(0) * tempX) / (Math.pow(tempX + betaVector.get(1), 2)));
                 double coC = -1;
 
                 //builds up Jacobi Matrix
@@ -118,12 +118,9 @@ public class GaussNewton {
     }
 
     private void updateBeta() { //β = β − (R−1Q⊤r).
-        System.out.println("J " + jacobian);
-
         QRFact qr = new QRFact(jacobian);
-        qr.doHouseholder();
+        qr.doGivens();
         Vector b = qr.solve(residuals);
         betaVector = betaVector.add(b.mult(-1));
-        System.out.println(betaVector);
     }
 }
