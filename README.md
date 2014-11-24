@@ -4,13 +4,15 @@ The Gauss-Newton Method
 Directory Structure
 -------------------
 /release: Executable jar files
+
 /src: Source files
 
 Usage
 -----
 
 java -jar gn_[qua | exp | log | rat] -f points_file -b a,b,c -i iterations [-h | -g]
-    Gauss-Newton method for approximating functions.
+
+Gauss-Newton method for approximating functions.
     
     gn_qua: Approximates a quadratic function in the form f(x) = ax^2 + bx + c
     gn_exp: Approximates a exponential function in the form f(x) = ae^(bx)+ c
