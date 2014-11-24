@@ -1,10 +1,15 @@
 The Gauss-Newton Method
 =======================
 
+Directory Structure
+-------------------
+/release: Executable jar files
+/src: Source files
+
 Usage
 -----
 
-java gn_[qua | exp | log | rat] -f points_file -b a,b,c -i iterations [-h | -g]
+java -jar gn_[qua | exp | log | rat] -f points_file -b a,b,c -i iterations [-h | -g]
     Gauss-Newton method for approximating functions.
     
     gn_qua: Approximates a quadratic function in the form f(x) = ax^2 + bx + c
@@ -16,4 +21,3 @@ java gn_[qua | exp | log | rat] -f points_file -b a,b,c -i iterations [-h | -g]
     -i iterations: Number of iterations
     -h Use Householder reflections
     -g Use Given's rotations
-
