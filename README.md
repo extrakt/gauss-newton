@@ -4,12 +4,12 @@ The Gauss-Newton Method
 Directory Structure
 -------------------
 /release: Executable jar files
-
 /src: Source files
 
 Usage
 -----
 
+```
 java -jar gn_[qua | exp | log | rat] -f points_file -b a,b,c -i iterations [-h | -g]
 
 Gauss-Newton method for approximating functions.
@@ -23,3 +23,4 @@ Gauss-Newton method for approximating functions.
     -i iterations: Number of iterations
     -h Use Householder reflections
     -g Use Given's rotations
+```
