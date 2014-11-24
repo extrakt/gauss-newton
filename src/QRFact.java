@@ -11,11 +11,21 @@ public class QRFact {
     private Matrix R;
     private Matrix H;
     private Matrix A;
-
-    public QRFact(Matrix a) {
-        this.A = a;
+    private Decomposer decomposer;
+    
+    public QRFact(Decomposer decomp) {
+        this.decomposer = decomp;
+    }
+    
+    public void decompose(Matrix a) {
+        A = a;
+        decomposer.decompose(this);
     }
 
+    public interface Decomposer {
+        public void decompose(QRFact qrFact);
+    }
+    
     public void doGivens() {
         // copy A to cumulativeG
         R = A.mult(1);
@@ -26,9 +36,7 @@ public class QRFact {
         for (int col = 0; col < A.getWidth(); col++) {
             //for( int row = A.getHeight()-1; row > col; row-- ){
             for (int row = col + 1; row < A.getHeight(); row++) {
-                System.out.println("iteration R " + R);
                 Matrix G = givensRotation(row, col);
-                System.out.println("iteration G " + G);
                 R = G.mult(R);
                 stack.push(G);
             }
@@ -56,14 +64,14 @@ public class QRFact {
         double x = R.get(col, col);
         double y = R.get(row, col);
 
-        System.out.println("x: " + x);
-        System.out.println("y: " + y);
+//        System.out.println("x: " + x);
+//        System.out.println("y: " + y);
 
         double cosTheta = x / Math.sqrt(x * x + y * y);
         double sinTheta = -y / Math.sqrt(x * x + y * y);
 
-        System.out.println("cosTheta: " + cosTheta);
-        System.out.println("sinTheta: " + sinTheta);
+//        System.out.println("cosTheta: " + cosTheta);
+//        System.out.println("sinTheta: " + sinTheta);
 
         G.set(col, col, cosTheta);
         G.set(row, col, sinTheta);

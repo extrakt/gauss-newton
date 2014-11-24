@@ -26,24 +26,24 @@ public class ProjectMain {
             System.out.println();
         }
 
-        GaussNewton gn = new GaussNewton(arrayOfInputs, betaGuess, n);
-
-        switch (f) {
-            case 1:
-                gn.getGaussQuadratic();
-                break;
-            case 2:
-                gn.getGaussExponential();
-                break;
-            case 3:
-                gn.getGaussLogarithmic();
-                break;
-            case 4:
-                gn.getGaussRational();
-
-        }
-
-        System.out.println(gn.getB());
+//        GaussNewton gn = new GaussNewton(arrayOfInputs, betaGuess, n);
+//
+//        switch (f) {
+//            case 1:
+//                gn.getGaussQuadratic();
+//                break;
+//            case 2:
+//                gn.getGaussExponential();
+//                break;
+//            case 3:
+//                gn.getGaussLogarithmic();
+//                break;
+//            case 4:
+//                gn.getGaussRational();
+//
+//        }
+//
+//        System.out.println(gn.getB());
     }
 
     private static double[][] getInput() {

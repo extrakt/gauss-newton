@@ -12,22 +12,21 @@ public class GaussNewton {
     Matrix eJacobian;
     Matrix lJacobian;
     Matrix rJacobian;
+    QRFact qrFact;
 
     // input: arrayOfPairs = double[][] array of of n pairs of floating point numbers.
     // betaTriple = a double[] array of a triple of floating point numbers (beta).
     //  n = and a number of "n" interations.
-    public GaussNewton(double[][] arrayOfPairs, double[] betaTriple, int numberOfIterations) {// ax2 + bx + c
-        betaVector = new Vector(betaTriple);
-        this.numberOfIterations = numberOfIterations;
-        residuals = new Vector(arrayOfPairs.length);
+    public GaussNewton(Vector[] pairs, Vector beta, int iterations, QRFact qr) {// ax2 + bx + c
+        betaVector = beta;
+        numberOfIterations = iterations;
+        vectorPairs = pairs;
+        residuals = new Vector(pairs.length);
         jacobian = new Matrix(residuals.getLength(), betaVector.getLength());
-        vectorPairs = new Vector[arrayOfPairs.length];
-        for (int i = 0; i < arrayOfPairs.length; i++) {
-            vectorPairs[i] = new Vector(arrayOfPairs[i]);
-        }
+        qrFact = qr;
     }
 
-    public Vector getB() {
+    public Vector getBeta() {
         return betaVector;
     }
 
@@ -35,7 +34,7 @@ public class GaussNewton {
         return residual;
     }
 
-    public void getGaussQuadratic() {
+    public void doGaussQuadratic() {
         for (int n = 0; n < numberOfIterations; n++) {
             for (int i = 0; i < vectorPairs.length; i++) {
                 double q = (Math.pow(vectorPairs[i].get(0), 2) * betaVector.get(0)) + (vectorPairs[i].get(0) * betaVector.get(1)) + betaVector.get(2);
@@ -55,7 +54,7 @@ public class GaussNewton {
         }
     }
 
-    public void getGaussExponential() {
+    public void doGaussExponential() {
         for (int n = 0; n < numberOfIterations; n++) {
             for (int i = 0; i < vectorPairs.length; i++) {
                 double e = (betaVector.get(0) * Math.exp((vectorPairs[i].get(0) * betaVector.get(1))) + betaVector.get(2));
@@ -75,7 +74,7 @@ public class GaussNewton {
         }
     }
 
-    public void getGaussLogarithmic() {
+    public void doGaussLogarithmic() {
         for (int n = 0; n < numberOfIterations; n++) {
             for (int i = 0; i < vectorPairs.length; i++) {
                 double e = (betaVector.get(0) * Math.log((vectorPairs[i].get(0) + betaVector.get(1))) + betaVector.get(2));
@@ -95,7 +94,7 @@ public class GaussNewton {
         }
     }
 
-    public void getGaussRational() {
+    public void doGaussRational() {
         for (int n = 0; n < numberOfIterations; n++) {
             for (int i = 0; i < vectorPairs.length; i++) {
                 double e = (((betaVector.get(0) * vectorPairs[i].get(0)) / (vectorPairs[i].get(0) + betaVector.get(1))) + betaVector.get(2));
@@ -118,9 +117,8 @@ public class GaussNewton {
     }
 
     private void updateBeta() { //β = β − (R−1Q⊤r).
-        QRFact qr = new QRFact(jacobian);
-        qr.doGivens();
-        Vector b = qr.solve(residuals);
+        qrFact.decompose(jacobian);
+        Vector b = qrFact.solve(residuals);
         betaVector = betaVector.add(b.mult(-1));
     }
 }
